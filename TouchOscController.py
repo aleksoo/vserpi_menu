@@ -12,51 +12,74 @@ class TouchOscController:
     _processName = "touchosc2midi"
     _touchoscPath = "/home/pi/.local/bin/touchosc2midi"
     _subProcess = None
+    _subProcessRunning = False
+    _touchoscPathDetected = False
+
     
     def __init__(self):
         if self._checkTouchOsc():
-            self._runSubProcess()
+            self._touchoscPathDetected = True
         else:
             print("No touchosc2midi found at", self._touchoscPath, ", can't start process")
 
     def __del__(self):
-        self._subProcess.terminate()
+        if self._touchoscPathDetected is True:
+            self._subProcess.terminate()    
 
     def isSubProcessRunning(self):
-        return self._subProcess.poll()
+        return self._subProcessRunning
 
     def startTouchOsc(self):
-        subProcessStatus = self.isSubProcessRunning()
-        print("subProcessStatus:", subProcessStatus, end = '; ')
-        if subProcessStatus is not None : # TODO: jezeli proces nie jest w trakcie wykonywania (None - trakcie)
-            print("process is dead before starting")
-            self._runSubProcess()
-            return True
+        if self._touchoscPathDetected is True:
+            if self._subProcessRunning is not True:
+                print("startTouchOsc: starting process")
+                self._runSubProcess()
+                self._subProcessRunning = True
+                return True
+            else:
+                print("startTouchOsc: subprocess is already running")
         else:
-            print("process is alive cant start")
-            return False
+            print("startTouchOsc: Can't find touchosc2midi path")
 
     def killTouchOsc(self):
-        subProcessStatus = self.isSubProcessRunning()
-        if subProcessStatus is None: # TODO: Jezeli proces jest w trakcie wykonywania (None - w trakcie)
-            self._subProcess.terminate()
-            # os.killpg(os.getpgid(self._subProcess.pid), signal.SIGTERM)  # Send the signal to all the process group
-            print("TERMINATING......................................................")
-            return True
-        print("Cant terminate, dead already")
-        return False
+        if self._touchoscPathDetected is True:
+            if self._subProcessRunning is True:
+                subProcessStatus = self.isSubProcessRunning()
+                # print("killTouchOsc: subProcessStatus =", subProcessStatus)
+                if subProcessStatus is True: # TODO: Jezeli proces jest w trakcie wykonywania (None - w trakcie)
+                    self._subProcess.terminate()
+                    self._subProcessRunning = False
+                    # os.killpg(os.getpgid(self._subProcess.pid), signal.SIGTERM)  # Send the signal to all the process group
+                    print("killTouchOsc: terminating")
+                    return True
+                print("killTouchOsc: Cant terminate, process is dead already")
+                return False
+            else:
+                print("killTouchOsc: Subprocess is not running")
+                return False
+        else:
+            print("killTouchOsc: Can't find touchosc2midi path")
+            return False
 
     def restartTouchOsc(self):
-        self.killTouchOsc()
-        self.startTouchOsc()
+        if self._touchoscPathDetected is True:
+            self.killTouchOsc()
+            self.startTouchOsc()
+        else:
+            print("restartTouchOsc: Can't find touchosc2midi path")
 
     def _runSubProcess(self):
-        self._subProcess = subprocess.Popen(["/home/pi/.local/bin/touchosc2midi"])#, \
+        if self._isPathDetected:
+            self._subProcess = subprocess.Popen(["/home/pi/.local/bin/touchosc2midi"], stdout=subprocess.DEVNULL)#, \
                                             # preexec_fn=os.setsid)   
         # self._subProcess = subprocess.Popen(["ls"])  
 
+    def _isPathDetected(self):
+        return self._touchoscPathDetected
+
     def _checkTouchOsc(self):
-        return exists(self._touchoscPath)
+        self._touchoscPathDetected = exists(self._touchoscPath)
+        return self._touchoscPathDetected
     
     def infoTouchOsc(self):
         pass
@@ -72,12 +95,18 @@ if __name__ == "__main__":
     time.sleep(1)
     touchOscController.startTouchOsc()
     time.sleep(1)
+    touchOscController.startTouchOsc()
+    time.sleep(1)
     touchOscController.killTouchOsc()
+    time.sleep(1)
+    touchOscController.killTouchOsc()
+    time.sleep(1)
+    os.system("ps")
     time.sleep(1)
     touchOscController.startTouchOsc()
     time.sleep(1)
     touchOscController.killTouchOsc()
-    time.sleep(2)
+    time.sleep(1)
+    touchOscController.startTouchOsc()
     os.system("ps")
-    # touchOscController.startTouchOsc()
     
