@@ -3,7 +3,7 @@
 import os
 import time
 from MidiInterface import MidiInterface
-from TouchOscController import TouchOscController
+# from TouchOscController import TouchOscController
 from ChoiceHandler import ChoiceHandler
 
 class Menu(ChoiceHandler):
@@ -16,7 +16,7 @@ class Menu(ChoiceHandler):
     def __init__(self):
         self._choiceHandler = ChoiceHandler()
         self._midiInterface = MidiInterface()
-        self._touchOscController = TouchOscController()
+        # self._touchOscController = TouchOscController()
         pass
 
     def run(self):
@@ -36,10 +36,10 @@ class Menu(ChoiceHandler):
         os.system('cls' if os.name == 'nt' else 'clear')
         print('')
         print("    CONNECTED DEVICE NAME: [ ", self._midiInterface.getDeviceName(), " ]", sep="")
-        print("    TOUCHOSC2MIDI: [ ", self._touchOscController.getIp() , " ]",sep="")
+        # print("    TOUCHOSC2MIDI: [ ", self._touchOscController.getIp() , " ]",sep="")
         print("    ")
         print('    __________________________________')
-        print("   /                 KORG             .   0 - touchOsc2Midi")
+        print("   /                 KORG             .   0 - touchOsc2Midi [N\\A]")
         print("  /              nanoKONTROL2         .")
         print("  |  [ < ] [ > ]                      .   1 - WAAAVE_POOL")
         print("  |   N/A   N/A                       .")
@@ -60,7 +60,8 @@ class Menu(ChoiceHandler):
 
     def runOption(self, pickedOption):
         # tu gdzies getMidiMsg
-        print("Picked option:", pickedOption)
+        self._choiceHandler.runOption(pickedOption)
+        # print("Picked option:", pickedOption)
 
 
 if __name__ == '__main__':
