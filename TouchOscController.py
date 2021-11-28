@@ -2,6 +2,7 @@
 
 from os.path import exists
 
+import commands
 import os
 import signal
 import subprocess
@@ -28,6 +29,12 @@ class TouchOscController:
 
     def isSubProcessRunning(self):
         return self._subProcessRunning
+
+    def getIp(self):
+        ip = "N\\A"
+        print(commands.getoutput('hostname -I'))
+        ip = commands.getoutput('hostname -I')
+        return ip
 
     def startTouchOsc(self):
         if self._touchoscPathDetected is True:
