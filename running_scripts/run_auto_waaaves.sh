@@ -1,3 +1,2 @@
 #!/bin/bash
-cd openFrameworks/apps/myApps/AUTO_WAAAVE_4
-make run
+(cd /home/pi/openFrameworks/apps/myApps/AUTO_WAAAVE_4 && make run)

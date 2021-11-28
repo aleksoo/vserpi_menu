@@ -2,7 +2,7 @@
 
 from os.path import exists
 
-import commands
+# import commands
 import os
 import signal
 import subprocess
@@ -31,10 +31,15 @@ class TouchOscController:
         return self._subProcessRunning
 
     def getIp(self):
+        # It could be better working tho, I don't like it at the moment
         ip = "N\\A"
-        print(commands.getoutput('hostname -I'))
-        ip = commands.getoutput('hostname -I')
-        return ip
+        # print(commands.getoutput('hostname -I'))
+        # ip = commands.getoutput('hostname -I')
+
+        proc = subprocess.Popen(['hostname', '-I'], stdout=subprocess.PIPE)
+        ip = proc.stdout.read()
+        ip = ip.split
+        return str(ip, "utf-8")
 
     def startTouchOsc(self):
         if self._touchoscPathDetected is True:
@@ -95,25 +100,13 @@ class TouchOscController:
 if __name__ == "__main__":
     touchOscController = TouchOscController()
     # os.system("ps")
-    time.sleep(5)
-    touchOscController.killTouchOsc()
-    time.sleep(1)
-    touchOscController.killTouchOsc()
-    time.sleep(1)
-    touchOscController.startTouchOsc()
-    time.sleep(1)
-    touchOscController.startTouchOsc()
-    time.sleep(1)
-    touchOscController.killTouchOsc()
-    time.sleep(1)
-    touchOscController.killTouchOsc()
-    time.sleep(1)
+    ip = touchOscController.getIp()
+
     os.system("ps")
-    time.sleep(1)
-    touchOscController.startTouchOsc()
-    time.sleep(1)
-    touchOscController.killTouchOsc()
-    time.sleep(1)
-    touchOscController.startTouchOsc()
-    os.system("ps")
+
+    # proc = subprocess.Popen(['hostname', '-I'], stdout=subprocess.PIPE)
+    # ip = proc.stdout.read()
+    # print(str(ip, "utf-8"))
+
+
     
