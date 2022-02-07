@@ -3,10 +3,10 @@ PYTHON = python3
 .PHONY: init run
 
 init: requirements.txt
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 run:
-	$(PYTHON) main.py
+	$(PYTHON) Menu.py
 
 
 

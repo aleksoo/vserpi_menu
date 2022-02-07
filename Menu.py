@@ -16,8 +16,10 @@ class Menu(ChoiceHandler):
     def __init__(self):
         self._choiceHandler = ChoiceHandler()
         self._midiInterface = MidiInterface()
+
+        self._softwareList = self._choiceHandler.getDisplayedMenuList() # might be obsolete line
+
         # self._touchOscController = TouchOscController()
-        pass
 
     def run(self):
         lastTime = time.time()
@@ -45,23 +47,25 @@ class Menu(ChoiceHandler):
         print("  |   N/A   N/A                       .")
         print("  |                                   .   2 - SPECTRAL_MESH")
         print("  |  [CYC]       [SET]  [ < ]  [ > ]  .")
-        print("  |    0          N/A    N/A    N/A   .   3 - ARTIFICIAL_LIFE")
+        print("  |    0          N/A   NEXT   PREV   .   3 - ARTIFICIAL_LIFE")
         print("  |                                   .")
         print("  |  [ < ] [ > ] [ [] ] [ |> ] [ O ]  .   4 - CHROMATIC ABBERATION")
         print("  \\    1     2     3      4      5    .")
         print('   \__________________________________.   5 - TEMPORAL VORTEX')
 
     def checkChoice(self):
-        option = self._midiInterface.getMidiMsg() # [1] bo to wtedy midi CC jest nasze
+        option = self._midiInterface.getMidiMsg() 
         if option != None: 
-            pickedOption = option[1]
+            pickedOption = option[1] # [1] to get incoming CC number
             self.runOption(pickedOption)
 
 
     def runOption(self, pickedOption):
-        # tu gdzies getMidiMsg
-        self._choiceHandler.runOption(pickedOption)
-        # print("Picked option:", pickedOption)
+        #here should be logic changing pages of menu
+        #getDisplayedMenuList() to update screen
+
+        if self._choiceHandler.runOption(pickedOption):
+            self._softwareList = self._choiceHandler.getDisplayedMenuList()
 
 
 if __name__ == '__main__':
