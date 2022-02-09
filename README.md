@@ -40,7 +40,7 @@ https://andreijaycreativecoding.com/VSERPI-hardware-and-images
   #cd /home/pi/openFrameworks/apps/myApps/WAAAVE_POOL_4_5
   make run
   ```
-  This way they won't execute at the boot. Note that path might vary depending on when you cloned repository. 
+  This way app won't execute at the boot. Note that path might vary depending on where you cloned repository. 
   
   Optionally (and recommended by me for maximum usage pleasure), you can change settings in "raspi-config" to use console boot instead of GUI:  
   ```
