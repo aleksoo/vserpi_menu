@@ -23,17 +23,22 @@ class Menu(ChoiceHandler):
         # self._touchOscController = TouchOscController()
 
     def run(self):
-        lastTime = time.time()
+        menu.printMenu()
         while True:
-            #tutaj dodac obsluge midi
-            #self.midiInterface.getMidiMsg()
             self.checkChoice()
 
-            if time.time() - lastTime > self._menuRefreshTime:
-                lastTime = time.time()
-                menu.printMenu()
-    #            print(time.time())
-        pass
+
+        # lastTime = time.time()
+    #     while True:
+    #         #tutaj dodac obsluge midi
+    #         #self.midiInterface.getMidiMsg()
+    #         self.checkChoice()
+
+    #         if time.time() - lastTime > self._menuRefreshTime:
+    #             lastTime = time.time()
+    #             menu.printMenu()
+    # #            print(time.time())
+    #     pass
 
     def printMenu(self):
         os.system('cls' if os.name == 'nt' else 'clear')

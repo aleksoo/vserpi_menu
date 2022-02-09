@@ -51,7 +51,7 @@ class MidiInterface:
                     self._connectedDeviceId = deviceIndex
                     self._deviceInfo.name = device_info.name
                     self._deviceInfo.input = device_info.input
-                    return True
+                    # return True
                 elif device_info.input == 1 and self._connectedDeviceId == -1:
                     self._deviceInfo.name = device_info.name
                     self._deviceInfo.input = device_info.input
