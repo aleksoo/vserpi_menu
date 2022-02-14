@@ -23,7 +23,7 @@ https://andreijaycreativecoding.com/VSERPI-hardware-and-images
 
   Firstly, clone this repository.
   ```
-  git clone git@github.com:aleksoo/vserpi_menu.git
+  git clone https://github.com/aleksoo/vserpi_menu.git
   ```
 
   Few tips and commands for people not familiar with Linux:
