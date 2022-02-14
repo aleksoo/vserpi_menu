@@ -19,12 +19,30 @@ https://andreijaycreativecoding.com/VSERPI-hardware-and-images
   * pyGame
 
 ## Setup
+  Open terminal and stop VSERPi software (which should autorun when you open new terminal) using "esc" key. 
+
   Firstly, clone this repository.
   ```
   git clone git@github.com:aleksoo/vserpi_menu.git
   ```
+
+  Few tips and commands for people not familiar with Linux:
+  cd - command for Changing Directory, you will use it to move around file system. To go into directory type into terminal f. ex.:
+  ```
+  cd vserpi_menu
+  ```
+
+  To move "higher" in structure type:
+  ```
+  cd .. 
+  ```
+
+  ls - list files in directory
+  pwd - displays path to your current directory
+
+
   
-  Secondly, download dependencies (run it from cloned "verspi_menu" directory):
+  Secondly, change directory download dependencies (run it from cloned "verspi_menu" directory):
   ```
   make init
   ```
@@ -59,7 +77,9 @@ https://andreijaycreativecoding.com/VSERPI-hardware-and-images
   
 ## Usage
   It's late and I should go to sleep, GUI should be clear enough to use. 
+
   < , > - change "page" of software (only 5 from list is shown on the screen)
+
   A, B, C, D, E buttons - run software from the list on the right  
   
 ## Adding your own software to the list
