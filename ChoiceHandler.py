@@ -83,7 +83,8 @@ class ChoiceHandler():
         if option >= 41 and option <= 45:
             # runPath = "make run " + self._vserpiPaths + '/' + self._options[str(option)]
             try:
-                runPath = self._vserpiPaths + "/" + str(self._softwareList[self._currentMenuPage][option - 41][1]) # last [1] is for path from# fix second path         
+                fixedOption = int([43, 44, 42, 41, 45].index(option))
+                runPath = self._vserpiPaths + "/" + str(self._softwareList[self._currentMenuPage][fixedOption][1]) # last [1] is for path from# fix second path         
                 subprocess.call(runPath, shell=True)
             except IndexError:
                 pass
